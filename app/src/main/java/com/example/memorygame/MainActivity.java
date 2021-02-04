@@ -1,19 +1,18 @@
 package com.example.memorygame;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.ListMenuPresenter;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -59,7 +58,8 @@ public class MainActivity extends AppCompatActivity {
                     barraProgresso = findViewById(R.id.progressBar);
 
             /// Seta a cor do fundo
-            fundo.setBackgroundColor((botoes.get(sequencia.get(0)-1).getBackgroundTintList().getDefaultColor()));
+            View botao = botoes.get(sequencia.get(0)-1);
+            fundo.setBackgroundColor(botao.getBackgroundTintList().getDefaultColor());
 
             /// Oculta o botão
             view.setVisibility(View.INVISIBLE);
@@ -73,6 +73,17 @@ public class MainActivity extends AppCompatActivity {
             progress = new Double (tam / 6);
             progress *= 100;
             progressBar.setProgress(100 - (int) progress);
+
+            /// Caso o jogador tenha finalizado o jogo, altera a view para a tela final.
+            if (sequencia.size() == 0) {
+                Intent intent = new Intent(this, Congrats.class);
+                if (intent != null){
+                    String cor = String.format("%d",botao.getBackgroundTintList().getDefaultColor());
+                    intent.putExtra("CorFundo", cor );;
+                    startActivity(intent);
+                }
+
+            }
         }
         else{
             reiniciar(view);
@@ -83,8 +94,11 @@ public class MainActivity extends AppCompatActivity {
     } // verificaBotao()
 
     public void reiniciar(View view){
+        /// Reinicia a sequencia
         sequencia.clear();
         sequencia.addAll(seqAux);
+
+        /// Reinicia a cor
         View fundo = findViewById(R.id.fundo);
         fundo.setBackgroundColor(Color.WHITE);
 
@@ -94,4 +108,5 @@ public class MainActivity extends AppCompatActivity {
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setProgress(0);
     }
+
 }
