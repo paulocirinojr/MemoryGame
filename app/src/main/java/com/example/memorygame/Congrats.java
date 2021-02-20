@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.TextView;
 
 public class Congrats extends AppCompatActivity {
 
@@ -16,6 +16,8 @@ public class Congrats extends AppCompatActivity {
 
         View view = findViewById(R.id.fundo);
         Integer cor = Integer.parseInt(getIntent().getStringExtra("CorFundo"));
+        ((TextView)findViewById(R.id.tempo)).setText("Tempo para conclusão: " + getIntent().getStringExtra("Tempo"));
+        ((TextView)findViewById(R.id.erros)).setText("Erros até conclusão: " + getIntent().getStringExtra("Erros"));
         view.setBackgroundColor(cor);
     }
 
@@ -24,4 +26,14 @@ public class Congrats extends AppCompatActivity {
         if (intent != null)
             startActivity(intent);
     }
+
+    public void salvarPlacar(View view){
+        Intent intent = new Intent(this, CadastroPontuacao.class);
+        if (intent != null) {
+            intent.putExtra("Tempo", getIntent().getStringExtra("Tempo"));
+            intent.putExtra("Erros", getIntent().getStringExtra("Erros"));
+            startActivity(intent);
+        }
+    }
+
 }

@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MemoryGame">
-        <activity android:name=".Congrats"></activity>
+        <activity android:name=".CadastroPontuacao"></activity>
+        <activity android:name=".Congrats" />
         <activity android:name=".congrats" />
         <activity android:name=".MainActivity">
             <intent-filter>

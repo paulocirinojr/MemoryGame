@@ -8,7 +8,9 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,6 +20,9 @@ public class MainActivity extends AppCompatActivity {
 
     List<View> botoes;
     List<Integer> sequencia, seqAux;
+    Chronometer timer;
+    int contErros;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +40,11 @@ public class MainActivity extends AppCompatActivity {
         botoes.add((Button) findViewById(R.id.button6));
 
         criaSeq();
+
+        /// Inicia o contador de tempo
+        timer = (Chronometer) findViewById(R.id.timer);
+        timer.start();
+        contErros = 0;
 
     }
 
@@ -76,10 +86,14 @@ public class MainActivity extends AppCompatActivity {
 
             /// Caso o jogador tenha finalizado o jogo, altera a view para a tela final.
             if (sequencia.size() == 0) {
+                timer.stop();
+
                 Intent intent = new Intent(this, Congrats.class);
                 if (intent != null){
                     String cor = String.format("%d",botao.getBackgroundTintList().getDefaultColor());
-                    intent.putExtra("CorFundo", cor );;
+                    intent.putExtra("CorFundo", cor );
+                    intent.putExtra("Tempo", timer.getText());
+                    intent.putExtra("Erros", String.format("%d",contErros));
                     startActivity(intent);
                 }
 
@@ -105,8 +119,11 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0 ; i < 6 ; i++)
             botoes.get(i).setVisibility(View.VISIBLE);
 
+        /// Zera o progresso
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setProgress(0);
+
+        contErros++;
     }
 
 }
