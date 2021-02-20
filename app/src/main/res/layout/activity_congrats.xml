@@ -92,6 +92,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
+            android:id="@+id/button9"
+            android:layout_width="137dp"
+            android:layout_height="54dp"
+            android:onClick="visualizaHistorico"
+            android:text="Visualizar histórico" />
+
+        <Button
             android:id="@+id/button"
             android:layout_width="137dp"
             android:layout_height="54dp"

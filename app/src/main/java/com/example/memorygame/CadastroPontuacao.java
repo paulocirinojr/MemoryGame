@@ -2,6 +2,7 @@ package com.example.memorygame;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +22,7 @@ public class CadastroPontuacao extends AppCompatActivity {
         db = new Database(this);
     }
 
+    /// Recupera os dados e envia pro BD.
     public void salvarPontuacao(View view){
         String tempo = getIntent().getStringExtra("Tempo");
         int erros = Integer.parseInt(getIntent().getStringExtra("Erros"));
@@ -34,8 +36,8 @@ public class CadastroPontuacao extends AppCompatActivity {
         db.insert(player);
         db.close();
 
-        Toast.makeText(this,"OK",Toast.LENGTH_LONG).show();
-
-        
+        Intent intent = new Intent(this, Historico.class);
+        if (intent != null)
+            startActivity(intent);
     }
 }

@@ -36,4 +36,10 @@ public class Congrats extends AppCompatActivity {
         }
     }
 
+    public void visualizaHistorico(View view){
+        Intent intent = new Intent(this, Historico.class);
+        if (intent != null) {
+            startActivity(intent);
+        }
+    }
 }
